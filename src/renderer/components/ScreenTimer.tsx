@@ -15,7 +15,7 @@ function ScreenTimer(props: ActiveTimerProps) {
   const { finalTimeFormat, oldTime, getNewTimeOut, second, handleReset } =
     props;
   const [showOption, setShowOption] = useState(false);
-  const [inputValue, setInputValue] = useState(oldTime/60000);
+  const [inputValue, setInputValue] = useState(oldTime / 60000);
   const [showSetting, setShowSetting] = useState('none');
   const [newTime, setNewTime] = useState(oldTime);
   const [position, setPostion] = useState({
@@ -45,21 +45,28 @@ function ScreenTimer(props: ActiveTimerProps) {
 
   const handleEnter = (e: any) => {
     if (e.key === 'Enter') {
+      if (!newTime.toString().match(/^0*?[1-9]\d*$/g)) {
+        alert('Time should be positive integer only');
+        setInputValue(oldTime / 60000);
+        return;
+      }
       getNewTimeOut(newTime);
+      setInputValue(newTime);
       setShowSetting('none');
       setShowOption(false);
       alert(`Screen time out updated to ${newTime} min`);
     }
   };
 
+  const handlePreReset = () => {
+    handleReset();
+    setInputValue(newTime);
+    setShowOption(false);
+  };
+
   const handleChange = (e: any) => {
     const { value } = e.target;
-    if (!value.match(/\d+/g) || value === '0') {
-      alert('Time should be positive number only');
-      setInputValue(oldTime/60000);
-      return;
-    }
-    setNewTime(Number(value));
+    setNewTime(value);
   };
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -86,7 +93,7 @@ function ScreenTimer(props: ActiveTimerProps) {
               <div className="setting" onMouseDownCapture={handleSetting}>
                 Set screen time out
               </div>
-              <div className="setting" onMouseDown={handleReset}>
+              <div className="setting" onMouseDown={handlePreReset}>
                 reset Timer
               </div>
               <div className="setting">Theme</div>

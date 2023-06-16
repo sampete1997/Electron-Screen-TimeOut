@@ -9,7 +9,7 @@ export default function App() {
   const timeOut: number =
     Number(window.localStorage.getItem('timeOut')) || 60000; // default 60 sec
   const [isActive, setIsActive] = useState<boolean>(true);
-  const [second, setSecond] = useState<number>(1);
+  const [second, setSecond] = useState<number>(0);
   const [minute, setMinute] = useState<number>(0);
   const [hour, setHour] = useState<number>(0);
   const [newTimeOut, setNewTimeOut] = useState(timeOut);
