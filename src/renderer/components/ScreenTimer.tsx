@@ -22,7 +22,7 @@ function ScreenTimer(props: ActiveTimerProps) {
     top: '0px',
     left: '0px',
   });
-  console.log('sec', second);
+
   const handleRightClick = (e: any) => {
     e.preventDefault();
 

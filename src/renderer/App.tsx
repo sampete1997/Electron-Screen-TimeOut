@@ -15,8 +15,6 @@ export default function App() {
   const [newTimeOut, setNewTimeOut] = useState(timeOut);
   const [restartCount, setRestartCount] = useState<number>(0);
 
-  console.log('timeOut', timeOut);
-
   useEffect(() => {
     clearTimeout(screenTimer);
     setRestartCount(0);
